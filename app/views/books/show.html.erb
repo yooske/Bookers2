@@ -6,31 +6,34 @@
   <% end %>
 
   <div class="container">
-    <%= render 'book', book: @new_book %>
+    <div class="row">
+      <%= render 'book', book: @new_book %>
 
-    <div class="col-md-8 offset-md-1">
-      <h2>Book detail</h2>
-      <table class="table">
-        <tbody>
-          <tr>
-            <td><%= link_to user_path(@book.user.id) do %>
-                  <%= image_tag @book.user.get_profile_image(100, 100) %><br>
-                  <%= @book.user.name %>
-                <% end %>
-            </td>
-            <td><%= link_to "#{@book.title}", book_path(@book.id) %></td>
-            <td><%= @book.body %></td>
-            <% if @book.user == current_user %>
-              <td>
-                <%= link_to "Edit", edit_book_path(@book.id), class: "btn btn-sm btn-success edit_book_#{@book.id}" %>
+      <div class="col-md-8 offset-md-1">
+        <h2>Book detail</h2>
+        <table class="table">
+          <tbody>
+            <tr>
+              <td><%= link_to user_path(@book.user.id) do %>
+                    <%= image_tag @book.user.get_profile_image(100, 100) %><br>
+                    <%= @book.user.name %>
+                  <% end %>
               </td>
-              <td>
-                <%= link_to "Destroy", book_path(@book.id), method: :delete, "data-confirm" => "本当に消しますか？", class: "btn btn-sm btn-danger destroy_book_#{@book.id}" %>
+              <td><%= link_to "#{@book.title}", book_path(@book.id) %></td>
+              <td><%= @book.body %></td>
+              <% if @book.user == current_user %>
+                <td>
+                  <%= link_to "Edit", edit_book_path(@book.id), class: "btn btn-sm btn-success edit_book_#{@book.id}" %>
                 </td>
-            <% end %>
-          </tr>
-        </tbody>
-      </table>
+                <td>
+                  <%= link_to "Destroy", book_path(@book.id), method: :delete, "data-confirm" => "本当に消しますか？", class: "btn btn-sm btn-danger destroy_book_#{@book.id}" %>
+                  </td>
+              <% end %>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </main>
+<%= render 'layouts/footer' %>
