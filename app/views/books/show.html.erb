@@ -37,9 +37,9 @@
             </tr>
           </tbody>
         </table>
-        <table class="table comment_form">
-          <%= render "book_comments/list", book: @book %>
-        </table>
+        <div class="comments_area">
+          <%= render "book_comments/list", book: @book, book_comment: @book_comment %>
+        </div>
       </div>
     </div>
   </div>
