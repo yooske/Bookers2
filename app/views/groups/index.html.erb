@@ -1,0 +1,35 @@
+<main>
+  <p id="notice"></p>
+  <div class="container px-5 px-sm-0">
+    <%= render 'layouts/errors', obj: @book %>
+    <div class="row">
+      <%= render 'books/book', book: @book %>
+      <div class="col-md-8 offset-md-1">
+        <h2>Groups</h2>
+        <table class="table table-hover table-inverse">
+          <thead>
+            <tr>
+              <th></th>
+              <th>グループ名</th>
+              <th>紹介文</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @groups.each do |group| %>
+              <tr>
+                <td>
+                  <%= link_to group_path(group) do %>
+                    <%= image_tag group.get_image(100, 100) %>
+                  <% end %>
+                </td>
+                <td><%= link_to "#{group.name}", group_path(group), class: "group_#{group}" %></td>
+                <td><%= group.introduction %></td>
+                <td><%= link_to "Edit", edit_group_path(group), class: "btn btn-success" %></td>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
