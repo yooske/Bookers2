@@ -1,4 +1,5 @@
 class Group < ApplicationRecord
+  belongs_to :owner, class_name: 'User'
   has_many :group_users, dependent: :destroy
 
   has_one_attached :image
@@ -9,6 +10,10 @@ class Group < ApplicationRecord
       image.attach(io: File.open(file_path), filename: 'default-img.jpg', content_type: 'image/jpeg')
     end
     image.variant(resize_to_limit:[width, height]).processed
+  end
+
+  def is_owned_by?(user)
+    owner.id == user.id
   end
 
   validates :name, uniqueness: true, presence: true
