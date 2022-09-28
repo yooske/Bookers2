@@ -19,6 +19,8 @@ class GroupsController < ApplicationController
   end
 
   def show
+    @book = Book.new
+    @group = Group.find(params[:id])
   end
 
   def edit
@@ -28,8 +30,11 @@ class GroupsController < ApplicationController
   def update
     @group = Group.find(params[:id])
     if @group.owner_id == current_user.id
-      @group.update(group_params)
-      redirect_to group_path(@group)
+      if @group.update(group_params)
+        redirect_to group_path(@group)
+      else
+        render :edit
+      end
     end
   end
 
