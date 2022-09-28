@@ -10,4 +10,7 @@ class Group < ApplicationRecord
     end
     image.variant(resize_to_limit:[width, height]).processed
   end
+
+  validates :name, uniqueness: true, presence: true
+  validates :introduction, presence: true
 end
