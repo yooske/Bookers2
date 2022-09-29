@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   end
   resources :users, only:[:index, :show, :edit, :update]
   resources :groups, only:[:index, :new, :create, :show, :edit, :update, :destroy] do
-    get "join" => "groups#join"
-    delete "leave" => "groups#leave"
+    resource :group_users, only: [:create, :destroy]
   end
 end

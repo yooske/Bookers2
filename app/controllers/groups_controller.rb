@@ -19,17 +19,19 @@ class GroupsController < ApplicationController
     end
   end
 
-  def join
-    @group = Group.find(params[:group_id])
-    @group.users << current_user
-    redirect_to  groups_path
-  end
+  #グループに参加する記述（group_userコントローラーを使っていないので不使用）
+  #def join
+    #@group = Group.find(params[:group_id])
+    #@group.users << current_user
+    #redirect_to  groups_path
+  #end
 
-  def leave
-    @group = Group.find(params[:group_id])
-    @group.users.delete(current_user)
-    redirect_to groups_path
-  end
+  #グループから退出する記述（group_userコントローラーを使っていないので不使用）
+  #def leave
+    #@group = Group.find(params[:group_id])
+    #@group.users.delete(current_user)
+    #redirect_to groups_path
+  #end
 
   def show
     @book = Book.new
