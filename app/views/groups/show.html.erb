@@ -7,19 +7,36 @@
       <div class="col-md-8 offset-md-1">
         <h2>Group Detail</h2>
         <table class="table table-hover table-inverse">
-          <tr>
-            <td>
-                <%= image_tag @group.get_image(50, 50) %>
-            </td>
-            <td><%= @group.name %></td>
-            <td><%= @group.introduction %></td>
-            <% if @group.owner_id == current_user.id %>
+          <thead>
+            <tr>
+              <th></th>
+              <th>グループ名</th>
+              <th>紹介文</th>
+              <th>メンバー</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
               <td>
-                <%= link_to "Edit", edit_group_path(@group), class: "btn btn-success" %>
-                <%= link_to "Destroy", group_path(@group), method: :delete, class: "btn btn-danger ml-3" %>
+                  <%= image_tag @group.get_image(100, 100) %>
               </td>
-            <% end %>
-          </tr>
+              <td><%= link_to "#{@group.name}", group_path(@group), class: "group_#{@group}" %></td>
+              <td><%= @group.introduction %></td>
+              <td>
+                <% @group.users.each do |member| %>
+                  <%= member.name %><br>
+                <% end %>
+              </td>
+              <% if current_user.id == @group.owner_id %>
+                <td><%= link_to "Edit", edit_group_path(@group), class: "btn btn-success" %></td>
+              <% elsif @group.users.include?(current_user) %>
+                <td><%= link_to 'Leave This Group', group_leave_path(@group), method: :delete, class: "btn btn-danger" %></td>
+              <% else %>
+                <td><%= link_to 'Join This Group', group_join_path(@group), class: "btn btn-success" %></td>
+              <% end %>
+            </tr>
+          </tbody>
         </table>
       </div>
     </div>
