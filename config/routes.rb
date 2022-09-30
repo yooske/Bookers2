@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'events/new'
   root to: 'home#top'
   get 'home/about' => 'home#about', as: 'about'
   devise_for :users
@@ -9,6 +10,8 @@ Rails.application.routes.draw do
   end
   resources :users, only:[:index, :show, :edit, :update]
   resources :groups, only:[:index, :new, :create, :show, :edit, :update, :destroy] do
+    resources :events, only:[:new, :create]
+    get 'events/complete' => 'events#complete'
     resource :group_users, only: [:create, :destroy]
   end
 end
