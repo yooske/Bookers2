@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'event_notices/new'
+  get 'event_notices/sent'
   get 'events/new'
   root to: 'home#top'
   get 'home/about' => 'home#about', as: 'about'
@@ -10,8 +12,8 @@ Rails.application.routes.draw do
   end
   resources :users, only:[:index, :show, :edit, :update]
   resources :groups, only:[:index, :new, :create, :show, :edit, :update, :destroy] do
-    resources :events, only:[:new, :create]
-    get 'events/complete' => 'events#complete'
     resource :group_users, only: [:create, :destroy]
+    resources :event_notices, only:[:new, :create]
+    get "event_notices" => "event_notices#sent"
   end
 end
