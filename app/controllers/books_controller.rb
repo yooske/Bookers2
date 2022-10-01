@@ -1,6 +1,7 @@
 class BooksController < ApplicationController
 
   def index
+    #1週間分のいいね合計順にsortするための記述
     to  = Time.current.at_end_of_day
     from  = (to - 6.day).at_beginning_of_day
     @books = Book.all.sort {|a,b|
