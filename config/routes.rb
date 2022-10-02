@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'chats/show'
   get 'event_notices/new'
   get 'event_notices/sent'
   get 'events/new'
@@ -10,10 +11,15 @@ Rails.application.routes.draw do
     resource :favorites, only:[:create, :destroy]
     resources :book_comments, only:[:create, :destroy]
   end
-  resources :users, only:[:index, :show, :edit, :update]
+  resources :users, only:[:index, :show, :edit, :update] do
+    resource :relationships, only: [:create, :destroy]
+  	get 'followings' => 'relationships#followings', as: 'followings'
+  	get 'followers' => 'relationships#followers', as: 'followers'
+  end
   resources :groups, only:[:index, :new, :create, :show, :edit, :update, :destroy] do
     resource :group_users, only: [:create, :destroy]
     resources :event_notices, only:[:new, :create]
     get "event_notices" => "event_notices#sent"
   end
+  resources :chats, only: [:show, :create]
 end
